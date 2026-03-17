@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSPO I Practice Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="card active">
+            <h1 class="title">PSPO I Exam Simulation</h1>
+            <p class="description">The test consists of 80 randomly selected questions.<br>Duration: 60 minutes.</p>
+            <button id="start-btn" class="btn primary-btn"><i class="fa-solid fa-play"></i> Start Test</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="card hidden">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <span id="question-counter" class="badge">Question: 1 / 80</span>
+                </div>
+                <div class="timer-container">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timer" class="timer-text">60:00</span>
+                </div>
+            </div>
+            
+            <div class="progress-bar-bg">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+
+            <div class="question-container">
+                <h2 id="question-text" class="question-text">Loading question...</h2>
+                <div id="options-container" class="options-container">
+                    <!-- Options will be injected here -->
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="prev-btn" class="btn secondary-btn" disabled><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <div class="right-controls">
+                    <button id="show-answer-btn" class="btn outline-btn"><i class="fa-solid fa-eye"></i> Show Answer</button>
+                    <button id="next-btn" class="btn primary-btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="card hidden">
+            <h1 class="title">Test Finished!</h1>
+            
+            <div class="score-container">
+                <div class="score-circle">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg"
+                        d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path id="score-circle-path" class="circle"
+                        stroke-dasharray="0, 100"
+                        d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <text id="score-text-percentage" x="18" y="20.35" class="percentage">0%</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <p id="score-details" class="description">You answered 0 out of 80 questions correctly.</p>
+            <p id="pass-status" class="pass-status"></p>
+            <button id="restart-btn" class="btn primary-btn"><i class="fa-solid fa-rotate-right"></i> Try Again</button>
+
+            <!-- Tiles Section -->
+            <div style="margin-top: 10px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <p class="description" style="font-size: 0.95rem; margin-bottom: 15px;">Click on a tile to review the question.</p>
+                <div id="result-tiles" class="result-tiles-grid">
+                    <!-- Result tiles will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Window Modal for Question Review -->
+        <div id="question-modal" class="modal hidden">
+            <div class="modal-content card">
+                <span id="modal-close" class="close-btn">&times;</span>
+                <div class="question-container" style="gap: 15px;">
+                    <div class="badge" style="width: max-content;" id="modal-question-badge">Question X</div>
+                    <h2 id="modal-question-text" class="question-text" style="font-size: 1.15rem;"></h2>
+                    <div id="modal-options-container" class="options-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data -->
+    <script src="quiz-data.js"></script>
+    <!-- Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
