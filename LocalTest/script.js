@@ -4,6 +4,7 @@ const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
 
 const startBtn = document.getElementById('start-btn');
+const startHalfBtn = document.getElementById('start-half-btn');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 const showAnswerBtn = document.getElementById('show-answer-btn');
@@ -30,7 +31,7 @@ let userAnswers = []; // Array of arrays containing selected indices
 let revealedAnswers = []; // Array of booleans
 let timer;
 let timeLeft = 60 * 60; // 60 minutes in seconds
-const TOTAL_QUESTIONS = 80;
+let TOTAL_QUESTIONS = 80;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 startBtn.addEventListener('click', startQuiz);
+startHalfBtn.addEventListener('click', startHalfQuiz);
 prevBtn.addEventListener('click', () => navigate(-1));
 nextBtn.addEventListener('click', () => navigate(1));
 showAnswerBtn.addEventListener('click', revealAnswer);
@@ -62,7 +64,12 @@ window.addEventListener('click', (e) => {
     }
 });
 
-function startQuiz() {
+function startHalfQuiz(){
+    TOTAL_QUESTIONS = 40;
+    startQuiz(true);
+}
+
+function startQuiz(isHalf) {
     startScreen.classList.add('hidden');
     quizScreen.classList.remove('hidden');
     
@@ -74,8 +81,12 @@ function startQuiz() {
     currentQuestionIndex = 0;
     userAnswers = new Array(TOTAL_QUESTIONS).fill(null).map(() => []);
     revealedAnswers = new Array(TOTAL_QUESTIONS).fill(false);
-    timeLeft = 60 * 60;
-    
+    if(isHalf){
+        timeLeft = 30 * 60
+    }
+    else{
+        timeLeft = 60 * 60;
+    }
     startTimer();
     renderQuestion();
 }
